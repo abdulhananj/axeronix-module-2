@@ -88,4 +88,3 @@ When an incident is correlated, the worker pushes to three queues:
 
 ---
 **Owner:** Student B | **Difficulty:** Advanced | **Stack:** Python 3.11+, Redis
-```
