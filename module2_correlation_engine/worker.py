@@ -9,9 +9,9 @@ import json
 import redis
 from datetime import datetime, timezone
 
-from .correlation_engine import CorrelationEngine
-from .schema import Event
-from .module7_export import to_module7_input
+from correlation_engine import CorrelationEngine
+from correlation_engine.schema import Event
+from correlation_engine.graph_export import to_module7_input
 
 # Connect to the central platform Redis (used by all modules for message passing)
 r = redis.Redis(host='localhost', port=6379, decode_responses=True)

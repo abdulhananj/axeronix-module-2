@@ -1,0 +1,69 @@
+[
+  {
+    "timestamp": "2026-10-27T10:00:00Z",
+    "host": "SRV-DC-01",
+    "source_type": "windows",
+    "event_id": "4625",
+    "raw_message": "An account failed to log on",
+    "user": "admin"
+  },
+  {
+    "timestamp": "2026-10-27T10:00:15Z",
+    "host": "SRV-DC-01",
+    "source_type": "windows",
+    "event_id": "4625",
+    "raw_message": "An account failed to log on",
+    "user": "admin"
+  },
+  {
+    "timestamp": "2026-10-27T10:00:30Z",
+    "host": "SRV-DC-01",
+    "source_type": "windows",
+    "event_id": "4625",
+    "raw_message": "An account failed to log on",
+    "user": "admin"
+  },
+  {
+    "timestamp": "2026-10-27T10:00:45Z",
+    "host": "SRV-DC-01",
+    "source_type": "windows",
+    "event_id": "4624",
+    "raw_message": "An account was successfully logged on",
+    "user": "admin",
+    "extra": {"new_geo": true}
+  },
+  {
+    "timestamp": "2026-10-27T10:01:30Z",
+    "host": "SRV-DC-01",
+    "source_type": "windows_sysmon",
+    "event_id": "1",
+    "raw_message": "Process Create: powershell.exe -enc SQBFAFgA...",
+    "user": "admin",
+    "process": "powershell.exe",
+    "extra": {"parent_process": "winword.exe"}
+  },
+  {
+    "timestamp": "2026-10-27T10:02:15Z",
+    "host": "SRV-DC-01",
+    "source_type": "windows",
+    "event_id": "4720",
+    "raw_message": "A user account was created: svc_backdoor",
+    "user": "admin"
+  },
+  {
+    "timestamp": "2026-10-27T10:02:45Z",
+    "host": "SRV-DC-01",
+    "source_type": "windows",
+    "event_id": "4732",
+    "raw_message": "A member was added to a security-enabled local group: Administrators",
+    "user": "admin"
+  },
+  {
+    "timestamp": "2026-10-27T10:05:00Z",
+    "host": "WKSTN-99",
+    "source_type": "windows",
+    "event_id": "4625",
+    "raw_message": "An account failed to log on",
+    "user": "guest"
+  }
+]
