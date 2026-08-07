@@ -28,32 +28,38 @@ module2_correlation_engine/
 │   ├── dedup.py                  # Step 2: Alert deduplication
 │   ├── grouping.py               # Step 4: Union-find alert grouping
 │   ├── killchain.py              # Step 6: MITRE ATT&CK mapping
-│   ├── module7_export.py         # Boundary adapter for Module 7 (Attack Graph)
+│   ├── graph_export.py           # Boundary adapter for Attack Graph output
 │   ├── store.py                  # In-memory or Redis-backed incident storage
 │   └── sample_data.py            # Fake dataset for standalone testing
 │
 ├── worker.py                     # PRODUCTION: Continuous Redis microservice loop
+├── cli.py                        # CLI: Unified tool for testing logs & exporting formats
+├── generate_logs.py              # TESTING: Generates 3,000+ fake logs for scale testing
 ├── demo.py                       # LOCAL: Runs engine on fake sample data
-├── run_own_logs.py               # LOCAL: Runs engine on custom CSV/JSON logs
-├── export_to_module7.py          # LOCAL: Exports incidents to Module 7 JSON format
 └── README.md
 ```
 
 ## 🚀 Getting Started
 
 ### Option 1: Quick Local Demo (No Redis Required)
-Run the engine against a built-in simulated 4-stage attack (Failed Logins → Success → PowerShell → Admin Creation) to see it generate a correlated incident.
+Run the engine against a built-in simulated 4-stage attack (Failed Logins → Success → PowerShell → Admin Creation) to see it generate a correlated incident and print the Kill Chain narrative.
 ```bash
-python demo.py
+python cli.py
 ```
 
-### Option 2: Run on Your Own Logs
-Test the engine against your own CSV or JSON log files.
+### Option 2: Process Custom Logs (Standard Output)
+Test the engine against your own CSV or JSON log files. This saves the full incident JSON for downstream modules (like AI and Timeline) and prints a clean 1-line summary to your terminal to prevent alert fatigue.
 ```bash
-python run_own_logs.py path/to/your_logs.json
+python cli.py path/to/your_logs.json
 ```
 
-### Option 3: Live Platform Worker (Requires Redis)
+### Option 3: Process Logs for Module 7 (Attack Graph Output)
+Run your logs through the engine and format the output specifically for Student G's Attack Graph module.
+```bash
+python cli.py path/to/your_logs.json --format module7
+```
+
+### Option 4: Live Platform Worker (Requires Redis)
 Run the module as a continuous microservice inside the 12-module AXERONIX platform. It will listen to Module 1's output queue and dispatch incidents to Modules 3, 6, and 7.
 ```bash
 python worker.py
@@ -79,12 +85,12 @@ It expects JSON payloads matching the shared schema:
 When an incident is correlated, the worker pushes to three queues:
 * `axeronix:module_3:incidents` (Standard JSON dict via `Incident.to_dict()`)
 * `axeronix:module_6:incidents` (Standard JSON dict via `Incident.to_dict()`)
-* `axeronix:module_7:incidents` (Custom flattened timeline format via `module7_export.py`)
+* `axeronix:module_7:incidents` (Custom flattened timeline format via `graph_export.py`)
 
 ## 🛡️ Design Principles
 * **Explainable over Clever:** Every risk score and rule match can be traced back to exact event IDs. No black-box ML.
-* **Adapter Pattern:** Internal `Incident` objects are kept pure. Translation to Module 7's expected schema happens at the boundary in `module7_export.py`.
+* **Adapter Pattern:** Internal `Incident` objects are kept pure. Translation to the Attack Graph's expected schema happens at the boundary in `graph_export.py`.
 * **Stateless Workers:** All state (time windows, dedup buckets) is offloaded to Redis, allowing the worker to be killed, restarted, or scaled horizontally without losing in-flight correlations.
 
 ---
-**Owner:** Student B | **Difficulty:** Advanced | **Stack:** Python 3.11+, Redis
+**Owner:** Student B(Abdul Hanan) | **Difficulty:** Advanced | **Stack:** Python 3.11+, Redis
