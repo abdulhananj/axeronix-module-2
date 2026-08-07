@@ -1,3 +1,4 @@
+//generates random logs for testing purpose
 import json
 import random
 from datetime import datetime, timedelta
