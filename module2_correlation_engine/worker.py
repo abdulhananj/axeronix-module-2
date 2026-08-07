@@ -1,4 +1,4 @@
-# module_2_correlation_engine/worker.py
+# module_2_correlation_engine/worker.py(useful in integration process)
 """
 The continuous service loop for Module 2.
 Pulls events from Module 1, runs the CorrelationEngine, 
